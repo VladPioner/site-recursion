@@ -1,7 +1,7 @@
 <?php
 
 //адрес сайта в формате http://site.com
-$site = 'http://site.com/ ';
+$site = 'http://site.com/';
 
 //адрес страницы с которой хотите начать рекурсивный просмотр сайта
 //в формате http://site.com/page.
