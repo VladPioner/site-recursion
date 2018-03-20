@@ -14,7 +14,7 @@ $dir_to_save = '/images777';
 //если вы хотите сохранять изображения только определенных форматов
 //(с определенным расширением файла)
 //перечислите их в данном массиве в нижнем регистре
-//$allowable_format_image = ['jpg','png','gif];
+//$allowable_format_image = ['jpg','png','gif'];
 $allowable_format_image = [];
 
 //если сайт очень большой и вы хотите ограничить
@@ -23,6 +23,10 @@ $allowable_format_image = [];
 //если не хотите ограничивать присвойте значение false
 $allowable_count_recurs = false;
 
+//Время выполнения скрипта в секундах.
+//Если это значение достигнуто, скрипт возвращает фатальную ошибку
+$time_limit = 300;
+set_time_limit($time_limit);
 
 $site = trim(trim(trim($site),'/'),'\\');
 if (!$address) $address = $site;
@@ -60,7 +64,7 @@ function getAllLink($address){
     else $begin_addr = $address;
     $begin_addr = trim(trim($begin_addr,'/'),'\\');
 
-    $page = file_get_contents($address);
+    $page = @file_get_contents($address);
     preg_match_all('#<a.*?href=(["\'])([^"\']+?)\1.*?>#m',$page,$links);
     $links = $links[2];
     foreach ($links as $link){
@@ -144,7 +148,7 @@ function addElementsToArr($arr_elements,&$arr_to_add,$begin_addr){
 getAllLink($address);
 
 foreach ($stylesheet as $address_css){
-    $css_f_cont = file_get_contents($address_css);
+    $css_f_cont = @file_get_contents($address_css);
     preg_match_all('#url\((.+?)\)#',$css_f_cont,$urls);
     $urls = $urls[1];
 
